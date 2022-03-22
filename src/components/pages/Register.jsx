@@ -15,20 +15,22 @@ export default function Register ({ currentUser, setCurrentUser }) {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        try {
-            if (form.password === form.passwordCheck) {
-            const response = await axios.post(process.env.REACT_APP_SERVER_URL+'/api-v1/users/register', form)
-            const { token } = response.data
-            const decoded = jwt_decode(token)
-            localStorage.setItem('jwt', token)
-            setCurrentUser(decoded)
-            } else setMsg('passwords do not match')
-        } catch (err) {
-            if (err.response.status === 409) {
-                setMsg(err.response.data.msg)
+        if (form.password === form.passwordCheck) {
+            // remove unneeded data in the form pre-request
+            delete form.passwordCheck
+            try {
+                const response = await axios.post(process.env.REACT_APP_SERVER_URL+'/api-v1/users/register', form)
+                const { token } = response.data
+                localStorage.setItem('jwt', token)
+                const decoded = jwt_decode(token)
+                setCurrentUser(decoded)
+            } catch (err) {
+                if (err.response.status === 409) {
+                    setMsg(err.response.data.msg)
+                }
+                console.log(err)
             }
-            console.log(err)
-        }
+        } else setMsg('passwords do not match')
     }
 
     if (currentUser) return <Navigate to='/profile' />

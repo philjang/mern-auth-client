@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 
@@ -34,14 +34,15 @@ function App() {
 
     return (
         <Router>
-            <Navbar handleLogout={handleLogout}/>
+            <Navbar handleLogout={handleLogout} currentUser={currentUser} />
             <div className="App">
                 <Routes>
                     <Route path="/" element={<Welcome />} />
 
                     <Route path="/login" element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 
-                    <Route path="/profile" element={<Profile />} />
+                    {/* <Route path="/profile" element={<Profile />} /> */}
+                    <Route path='/profile' element={currentUser ? <Profile currentUser={currentUser} /> : <Navigate to='/login' />} />
 
                     <Route path="/register" element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
                 </Routes>
