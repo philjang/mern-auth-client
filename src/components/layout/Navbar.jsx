@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export default function Navbar () {
+export default function Navbar ({ handleLogout }) {
     return (
         <nav>
             <Link to='/'>User App</Link>
@@ -8,7 +8,7 @@ export default function Navbar () {
             {/* if the user is logged in */}
             <Link to='/'>
                 {/* todo: add function to logout */}
-                <span></span>
+                <span onClick={handleLogout}>Log Out</span>
             </Link>
             <Link to='/profile'>Profile</Link>
             
