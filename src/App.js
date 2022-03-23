@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useState, useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 
-import './App.css';
 
 import Navbar from './components/layout/Navbar';
 import Login from './components/pages/Login';

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 export default function Register ({ currentUser, setCurrentUser }) {
     const [form, setForm] = useState({
@@ -37,23 +38,37 @@ export default function Register ({ currentUser, setCurrentUser }) {
 
     return (
         <div>
-            <h3>Sign Up:</h3>
-            <p>{msg ? `message from server: ${msg}` : ''}</p>
-            <form onSubmit={handleFormSubmit}>
-                <label htmlFor="name">Name:</label>
-                <input id="name" type="text" placeholder='John Doe' onChange={e => setForm({...form, name: e.target.value})} value={form.name} required />
+            <Container>
+                <Row>
+                    <Col sm={10} md={6}>
+                        <h3>Sign Up:</h3>
+                        <p>{msg ? `message from server: ${msg}` : ''}</p>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Group>
+                                <Form.Label htmlFor="name">Name:</Form.Label>
+                                <Form.Control id="name" type="text" placeholder='John Doe' onChange={e => setForm({...form, name: e.target.value})} value={form.name} required />
+                            </Form.Group>
 
-                <label htmlFor="email">Email:</label>
-                <input id="email" type="email" placeholder='user@domain.com' onChange={e => setForm({...form, email: e.target.value})} value={form.email} required />
-                
-                <label htmlFor="password">Password:</label>
-                <input id="password" type="password" onChange={e => setForm({...form, password: e.target.value})} value={form.password} required />
+                            <Form.Group>
+                                <Form.Label htmlFor="email">Email:</Form.Label>
+                                <Form.Control id="email" type="email" placeholder='user@domain.com' onChange={e => setForm({...form, email: e.target.value})} value={form.email} required />
+                            </Form.Group>
 
-                <label htmlFor="passwordCheck">Confirm Password:</label>
-                <input id="passwordCheck" type="password" onChange={e => setForm({...form, passwordCheck: e.target.value})} value={form.passwordCheck} required />
+                            <Form.Group>
+                                <Form.Label htmlFor="password">Password:</Form.Label>
+                                <Form.Control id="password" type="password" onChange={e => setForm({...form, password: e.target.value})} value={form.password} required />
+                            </Form.Group>
+                            
+                            <Form.Group>
+                                <Form.Label htmlFor="passwordCheck">Confirm Password:</Form.Label>
+                                <Form.Control id="passwordCheck" type="password" onChange={e => setForm({...form, passwordCheck: e.target.value})} value={form.passwordCheck} required />
+                            </Form.Group>
 
-                <input type="submit" value="Submit" />
-            </form>
+                            <Button variant="primary" type="submit">Submit</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
